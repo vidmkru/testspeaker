@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= speaker ? "Редактировать спикера" : "Новый спикер" %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site">
+    <h1><%= speaker ? "✏️ Редактировать спикера" : "➕ Новый спикер" %></h1>
+    <a href="/admin">&larr; К списку</a>
+  </header>
+  <main>
+    <% if (error) { %><div class="error"><%= error %></div><% } %>
+    <form class="stack" method="POST" enctype="multipart/form-data"
+          action="<%= speaker ? '/admin/edit/' + speaker.id : '/admin/new' %>">
+      <div>
+        <label for="name">Имя</label><br />
+        <input type="text" id="name" name="name" required value="<%= speaker ? speaker.name : '' %>" />
+      </div>
+      <div>
+        <label for="title">Должность / компания</label><br />
+        <input type="text" id="title" name="title" value="<%= speaker ? (speaker.title || '') : '' %>" />
+      </div>
+      <div>
+        <label for="bio">Краткое био</label><br />
+        <textarea id="bio" name="bio"><%= speaker ? (speaker.bio || '') : '' %></textarea>
+      </div>
+      <div>
+        <label for="photo">Фото <%= speaker ? "(оставьте пустым, чтобы не менять)" : "" %></label><br />
+        <input type="file" id="photo" name="photo" accept="image/*" <%= speaker ? "" : "required" %> />
+      </div>
+      <% if (speaker && speaker.photo) { %>
+        <img src="<%= speaker.photo %>" alt="" style="width:100px;height:100px;object-fit:cover;border-radius:8px" />
+      <% } %>
+      <button type="submit"><%= speaker ? "Сохранить" : "Добавить" %></button>
+    </form>
+  </main>
+</body>
+</html>

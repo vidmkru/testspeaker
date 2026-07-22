@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>База спикеров</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site">
+    <h1>🎤 База спикеров</h1>
+    <a href="/admin/login">Вход для админа</a>
+  </header>
+  <main>
+    <% if (speakers.length === 0) { %>
+      <p class="empty">Пока нет ни одного спикера. Зайдите в админку и добавьте первого!</p>
+    <% } else { %>
+      <div class="grid">
+        <% speakers.forEach(function(s) { %>
+          <div class="card">
+            <img src="<%= s.photo %>" alt="<%= s.name %>" />
+            <div class="body">
+              <h3><%= s.name %></h3>
+              <% if (s.title) { %><p class="title"><%= s.title %></p><% } %>
+              <% if (s.bio) { %><p class="bio"><%= s.bio %></p><% } %>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </main>
+</body>
+</html>
